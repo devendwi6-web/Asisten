@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplikasi Pribadi - Personal Workspace</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+
+  <!-- ================= TAMPILAN 1: HALAMAN LOGIN ================= -->
+  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4 w-full">
+    <div class="bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 p-8 rounded-3xl shadow-2xl w-full max-w-md relative overflow-hidden">
+      <!-- Glow Decor -->
+      <div class="absolute -top-12 -right-12 w-32 h-32 bg-indigo-500/20 rounded-full blur-2xl"></div>
+      <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
+
+      <!-- Header / Logo -->
+      <div class="text-center mb-8 relative z-10">
+        <div class="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-500/30">
+          <i data-lucide="shield-check" class="w-8 h-8 text-white"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-white tracking-wide">Aplikasi Pribadi</h1>
+        <p class="text-xs text-slate-400 mt-1">Silakan masuk ke ruang kerja pribadi Anda</p>
+      </div>
+
+      <!-- Form Login -->
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-5 relative z-10">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email / Username</label>
+          <div class="relative">
+            <i data-lucide="mail" class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input type="text" required placeholder="pribadi@domain.com"
+              class="w-full pl-11 pr-4 py-3 bg-slate-900/60 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Kata Sandi</label>
+          <div class="relative">
+            <i data-lucide="lock" class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input type="password" required placeholder="••••••••"
+              class="w-full pl-11 pr-4 py-3 bg-slate-900/60 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-400">
+          <label class="flex items-center space-x-2 cursor-pointer">
+            <input type="checkbox" class="rounded bg-slate-900 border-slate-700 text-indigo-500 focus:ring-0">
+            <span>Ingat Saya</span>
+          </label>
+          <a href="#" class="text-indigo-400 hover:text-indigo-300 transition-colors">Lupa sandi?</a>
+        </div>
+
+        <button type="submit"
+          class="w-full py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/25 transition-all transform active:scale-95 flex items-center justify-center space-x-2">
+          <span>Masuk Aplikasi</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <!-- Biometric Login Placeholder -->
+      <div class="mt-6 pt-6 border-t border-slate-700/50 text-center relative z-10">
+        <p class="text-xs text-slate-400 mb-3">Atau masuk cepat dengan biometrik</p>
+        <button onclick="handleLoginDirect()"
+          class="p-3 bg-slate-900/60 hover:bg-slate-700/50 border border-slate-700 rounded-2xl text-slate-300 transition-all mx-auto inline-flex items-center justify-center">
+          <i data-lucide="fingerprint" class="w-6 h-6 text-indigo-400"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TAMPILAN 2: MENU UTAMA / DASHBOARD ================= -->
+  <div id="dashboard-screen" class="hidden min-h-screen flex-col justify-between max-w-md mx-auto w-full bg-slate-900 border-x border-slate-800">
+    
+    <!-- Top Header & Profile -->
+    <header class="p-6 pb-4 bg-slate-800/40 border-b border-slate-800 flex items-center justify-between sticky top-0 backdrop-blur-md z-20">
+      <div class="flex items-center space-x-3">
+        <div class="w-11 h-11 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-md">
+          A
+        </div>
+        <div>
+          <p class="text-xs text-slate-400">Selamat Datang 👋</p>
+          <h2 class="text-base font-bold text-white">Pengguna Pribadi</h2>
+        </div>
+      </div>
+      <button onclick="handleLogout()" title="Keluar" class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-red-400 rounded-xl transition-colors">
+        <i data-lucide="log-out" class="w-5 h-5"></i>
+      </button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="p-6 space-y-6 flex-1 overflow-y-auto">
+      
+      <!-- Ringkasan / Overview Card -->
+      <div class="p-5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl shadow-xl shadow-indigo-500/10 relative overflow-hidden">
+        <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
+        <p class="text-xs font-medium text-indigo-100">Status Hari Ini</p>
+        <h3 class="text-xl font-bold text-white mt-1">Semua Aktivitas Lancar</h3>
+        <div class="mt-4 flex items-center justify-between text-xs text-indigo-100/90 pt-3 border-t border-white/15">
+          <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4"></i> 4 Tugas Selesai</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4"></i> 2 Jadwal</span>
+        </div>
+      </div>
+
+      <!-- Quick Access Menu Grid -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Menu Utama</h4>
+        <div class="grid grid-cols-3 gap-3">
+          
+          <!-- Menu 1: Tugas / Todo -->
+          <button class="p-4 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-2xl flex flex-col items-center justify-center space-y-2 group transition-all">
+            <div class="p-2.5 bg-blue-500/10 text-blue-400 rounded-xl group-hover:scale-110 transition-transform">
+              <i data-lucide="check-square" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-medium text-slate-200">Tugas</span>
+          </button>
+
+          <!-- Menu 2: Catatan -->
+          <button class="p-4 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-2xl flex flex-col items-center justify-center space-y-2 group transition-all">
+            <div class="p-2.5 bg-amber-500/10 text-amber-400 rounded-xl group-hover:scale-110 transition-transform">
+              <i data-lucide="file-text" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-medium text-slate-200">Catatan</span>
+          </button>
+
+          <!-- Menu 3: Keuangan -->
+          <button class="p-4 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-2xl flex flex-col items-center justify-center space-y-2 group transition-all">
+            <div class="p-2.5 bg-emerald-500/10 text-emerald-400 rounded-xl group-hover:scale-110 transition-transform">
+              <i data-lucide="wallet" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-medium text-slate-200">Keuangan</span>
+          </button>
+
+          <!-- Menu 4: Jadwal -->
+          <button class="p-4 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-2xl flex flex-col items-center justify-center space-y-2 group transition-all">
+            <div class="p-2.5 bg-purple-500/10 text-purple-400 rounded-xl group-hover:scale-110 transition-transform">
+              <i data-lucide="calendar-days" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-medium text-slate-200">Jadwal</span>
+          </button>
+
+          <!-- Menu 5: Dokumen -->
+          <button class="p-4 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-2xl flex flex-col items-center justify-center space-y-2 group transition-all">
+            <div class="p-2.5 bg-rose-500/10 text-rose-400 rounded-xl group-hover:scale-110 transition-transform">
+              <i data-lucide="folder" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-medium text-slate-200">Berkas</span>
+          </button>
+
+          <!-- Menu 6: Pengaturan -->
+          <button class="p-4 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-2xl flex flex-col items-center justify-center space-y-2 group transition-all">
+            <div class="p-2.5 bg-slate-500/10 text-slate-400 rounded-xl group-hover:scale-110 transition-transform">
+              <i data-lucide="settings" class="w-6 h-6"></i>
+            </div>
+            <span class="text-xs font-medium text-slate-200">Pengaturan</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Activity Section -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Catatan Terakhir</h4>
+          <a href="#" class="text-xs text-indigo-400 hover:underline">Lihat semua</a>
+        </div>
+        <div class="space-y-2">
+          <div class="p-3 bg-slate-800/50 border border-slate-800 rounded-xl flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+              <div>
+                <p class="text-xs font-medium text-slate-200">Rencana Minggu Ini</p>
+                <p class="text-[10px] text-slate-500">Diperbarui 2 jam yang lalu</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+          </div>
+          <div class="p-3 bg-slate-800/50 border border-slate-800 rounded-xl flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+              <div>
+                <p class="text-xs font-medium text-slate-200">Daftar Belanja Bulanan</p>
+                <p class="text-[10px] text-slate-500">Diperbarui Kemarin</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="p-3 bg-slate-800/80 border-t border-slate-800 sticky bottom-0 backdrop-blur-md flex items-center justify-around z-20">
+      <button class="p-2 text-indigo-400 flex flex-col items-center space-y-1">
+        <i data-lucide="home" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium">Beranda</span>
+      </button>
+      <button class="p-2 text-slate-400 hover:text-slate-200 flex flex-col items-center space-y-1">
+        <i data-lucide="pie-chart" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium">Statistik</span>
+      </button>
+      <button class="p-2 text-slate-400 hover:text-slate-200 flex flex-col items-center space-y-1">
+        <i data-lucide="user" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium">Profil</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- JavaScript Logika Sederhana -->
+  <script>
+    lucide.createIcons();
+
+    const loginScreen = document.getElementById('login-screen');
+    const dashboardScreen = document.getElementById('dashboard-screen');
+
+    function handleLogin(event) {
+      event.preventDefault();
+      loginScreen.classList.add('hidden');
+      dashboardScreen.classList.remove('hidden');
+      dashboardScreen.classList.add('flex');
+    }
+
+    function handleLoginDirect() {
+      loginScreen.classList.add('hidden');
+      dashboardScreen.classList.remove('hidden');
+      dashboardScreen.classList.add('flex');
+    }
+
+    function handleLogout() {
+      dashboardScreen.classList.add('hidden');
+      dashboardScreen.classList.remove('flex');
+      loginScreen.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
